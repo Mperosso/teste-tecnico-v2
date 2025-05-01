@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Thunders.TechTest.ApiService;
+using Thunders.TechTest.ApiService.Handler;
+using Thunders.TechTest.ApiService.Repository.Context;
 using Thunders.TechTest.OutOfBox.Database;
 using Thunders.TechTest.OutOfBox.Queues;
 
@@ -15,12 +17,13 @@ builder.Services.AddProblemDetails();
 
 if (features.UseMessageBroker)
 {
-    builder.Services.AddBus(builder.Configuration, new SubscriptionBuilder());
+    builder.Services.AddBus(builder.Configuration, new SubscriptionBuilder()
+        .Add<PedagioMessageHandler>());
 }
 
 if (features.UseEntityFramework)
 {
-    builder.Services.AddSqlServerDbContext<DbContext>(builder.Configuration);
+    builder.Services.AddSqlServerDbContext<PedagioDbContext>(builder.Configuration);        
 }
 
 

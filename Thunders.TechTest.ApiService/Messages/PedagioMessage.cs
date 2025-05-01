@@ -1,12 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Thunders.TechTest.ApiService.Enum;
+﻿using Thunders.TechTest.ApiService.Enum;
 
-namespace Thunders.TechTest.ApiService.Entities
+namespace Thunders.TechTest.ApiService.Messages
 {
-    [Table("PEDAGIOS")]
-    public class Pedagio
+    public class PedagioMessage
     {
-        public int Id { get; internal set; }
         public DateTime DataHora { get; set; }
         public int PracaId { get; set; }
         public string Cidade { get; set; }
