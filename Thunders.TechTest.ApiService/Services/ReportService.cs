@@ -49,7 +49,8 @@ namespace Thunders.TechTest.ApiService.Services
 
             var relatorio = pedagios
                 .GroupBy(p => new { p.DataHora.Date, p.DataHora.Hour, p.Cidade, p.Estado})
-                .Where(g => g.Key.Date >= dataInicial && g.Key.Date <= dataFinal)
+                .Where(g => new DateTime(g.Key.Date.Year, g.Key.Date.Month, g.Key.Date.Day, g.Key.Hour, 0, 0) >= dataInicial 
+                && new DateTime(g.Key.Date.Year, g.Key.Date.Month, g.Key.Date.Day, g.Key.Hour, 0, 0) <= dataFinal)
                 .Select(g => new RelatorioValorHoraCidade
                 {
                     Hora = new DateTime(g.Key.Date.Year, g.Key.Date.Month, g.Key.Date.Day, g.Key.Hour, 0, 0),

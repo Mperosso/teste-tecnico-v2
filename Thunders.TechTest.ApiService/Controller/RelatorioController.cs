@@ -13,8 +13,13 @@ namespace Thunders.TechTest.ApiService.Controller
             _reportService = reportService;
         }
         [HttpGet("faturamento-pracas")]
-        public async Task<IActionResult> ObterRelatorioPracasMaisFaturaram(int numeroPracas)
+        public async Task<IActionResult> ObterRelatorioPracasMaisFaturaram([FromBody] int numeroPracas)
         {
+            if (numeroPracas <= 0)
+            {
+                return BadRequest("Número de praças inválido.");
+            }
+
             try
             {
                 var relatorio = await _reportService.GerarRelatorioFaturamentoPracasAsync(numeroPracas);
@@ -27,8 +32,13 @@ namespace Thunders.TechTest.ApiService.Controller
         }
 
         [HttpGet("valor-hora-cidade")]
-        public async Task<IActionResult> ObterValorHoraCidade(DateTime dataInicial, DateTime dataFinal)
+        public async Task<IActionResult> ObterValorHoraCidade([FromBody] DateTime dataInicial, DateTime dataFinal)
         {
+            if (dataInicial == default || dataFinal == default)
+            {
+                return BadRequest("Data inicial ou final inválida.");
+            }
+
             try
             {
                 var relatorio = await _reportService.GerarRelatorioValorHoraCidadeAsync(dataInicial, dataFinal);
@@ -41,8 +51,13 @@ namespace Thunders.TechTest.ApiService.Controller
         }
 
         [HttpGet("veiculos-praca")]
-        public async Task<IActionResult> ObterVeiculosPraca(int pracaId)
+        public async Task<IActionResult> ObterVeiculosPraca([FromBody] int pracaId)
         {
+            if (pracaId <= 0)
+            {
+                return BadRequest("ID da praça inválido.");
+            }
+
             try
             {
                 var relatorio = await _reportService.GerarRelatorioVeiculosPracaAsync(pracaId);
