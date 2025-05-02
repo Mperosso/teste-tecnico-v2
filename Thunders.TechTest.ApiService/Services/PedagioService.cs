@@ -15,8 +15,14 @@ namespace Thunders.TechTest.ApiService.Services
         {
             if (pedagio == null)
                 throw new ArgumentNullException(nameof(pedagio));
-
-            await _pedagioRepository.SalvarPedagioAsync(pedagio);
+            try
+            {
+                await _pedagioRepository.SalvarPedagioAsync(pedagio);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao salvar pedagio", ex);
+            }
         }
     }
 }
